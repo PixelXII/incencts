@@ -1,6 +1,6 @@
 var Game = {
     character: {
-        url: "https://cdn.jsdelivr.net/gh/PixelXII/platform/assets/character/char.png",
+        url: "https://cdn.jsdelivr.net/gh/PixelXII/incencts/assets/chara.png",
         img: null
     },
     controls: {
