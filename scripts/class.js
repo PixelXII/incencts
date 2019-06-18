@@ -1,3 +1,6 @@
+var Bodies = Matter.Bodies,
+    World = Matter.World,
+    Engine = Matter.Engine;
 class Player {
   constructor(img) {
     this.img = img
@@ -55,4 +58,42 @@ class Player {
     setTimeout(() => this.acceleration.y = 0, 300)
   }
 }
+
+class CustomRect { // for matter.js and p5js compatibility
+  constructor(body, width, height, color, image) {
+    this.body = body
+    this.width = width
+    this.height = height
+    this.color = color
+    this.image = image
+  }
+  showAsRect() {
+    var vertices = this.body.vertices;
+    fill(this.color);
+    beginShape(); // DOES NOT WORK FOR IMAGES, HELP!!!
+    for (var i = 0; i < vertices.length; i++) {
+      vertex(vertices[i].x, vertices[i].y); // basically everything for the physics system
+    }
+    endShape();
+  }
+  displayImage() {
+    image(this.image, this.body.position.x, this.body.position.y, this.width, this.height)
+  }
+}
+
 // other classes? Enemy, Friendly (both need some kind of pathfinding tho)
+
+class Enemy {
+  constructor(aitype, agression, {x, y, w, h}) {
+    if(aitype instanceof AIType) {
+      this.aitype = aitype
+    }
+    this.agression = agression // what value? number? string? object?
+    // what does agression determine? health? speed and agility towards player? differnet *levels of intellegence* while navigating?
+    this.physicsBody = Bodies.rectangle(x, y, w, h)
+    this.customBody = new CustomRect(this.physicsBody, w, h, 51, "../assets/enemy/static.png")
+  }
+  seek(target) {
+    // steer = desired - velocity
+  }
+}
